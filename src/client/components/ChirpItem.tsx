@@ -7,7 +7,7 @@ import { SingleChirp } from '../../utilities/types';
 dayjs.extend(rt);
 
 const ChirpItem = (props: ChirpItemProps) => {
-  const { id, user, text } = props.chirp;
+  const { user, text } = props.chirp;
   const date = Date.now() - 300000;
   return (
     <>

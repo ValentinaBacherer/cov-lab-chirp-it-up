@@ -12,7 +12,7 @@ const ChirpInput = ({ setChirps }) => {
   const [username, setUsername] = React.useState<string>(null);
   const [message, setMessage] = React.useState<string>(null);
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
     if (username && message) {
       const newChirp: SingleChirp = {

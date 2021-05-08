@@ -1,8 +1,8 @@
 import * as express from 'express';
 
 const router = express.Router();
-import * as chirpStore from '../chirpstore';
-import { SingleChirp, ChirpsObject } from '../chirpstore';
+import * as chirpStore from '../../utilities/chirpstore';
+import { SingleChirp } from '../../utilities/types';
 
 router.get('/:id?', (req, res) => {
   const id = req.params.id;

@@ -4,7 +4,6 @@ import { SingleChirp } from '../utilities/types';
 import ChirpInput from './components/ChirpInput';
 import ChirpList from './components/ChirpList';
 
-/* HOOK REACT EXAMPLE */
 const App = () => {
   const [reactChirps, setReactChirps] = useState<SingleChirp[]>([
     { user: null, text: null },

@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { ChirpsObject, SingleChirp } from '../utilities/types';
+import { ChirpsObject, SingleChirp } from './types';
 
 let chirps: ChirpsObject = { nextid: 0 };
 
@@ -19,27 +19,28 @@ export let getChirp = (id: string): SingleChirp => {
 export let createChirp = (chirp: SingleChirp): void => {
   console.log('chirp to create:', chirp);
 
+  // -> I didn't know how to handle this nextid
   chirps[chirps.nextid++] = chirp; //assign and after increments value
   console.log('created - chirps object', chirps);
 
   writeChirps();
 };
 
-export let updateChirp = (id: string, chirp: SingleChirp) => {
+export let updateChirp = (id: string, chirp: SingleChirp): void => {
   chirps[id] = chirp;
   writeChirps();
 };
 
-export let deleteChirp = (id: string) => {
+export let deleteChirp = (id: string): void => {
   delete chirps[id];
   writeChirps();
 };
 
-export let writeChirps = () => {
+export let writeChirps = (): void => {
   fs.writeFileSync('chirps.json', JSON.stringify(chirps));
 };
 
 // new function from Andrew
-export let getLastInsertedID = () => {
+export let getLastInsertedID = (): string | number => {
   return chirps.nextid;
 };
