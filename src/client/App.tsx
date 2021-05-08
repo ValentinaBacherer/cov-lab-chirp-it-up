@@ -21,7 +21,21 @@ const App = () => {
     getChirps();
   }, []);
 
-  const updateChirps = (chirp: SingleChirp): void => {
+  const updateChirps = async (chirp: SingleChirp): Promise<void> => {
+    try {
+      const response = await fetch('/api/chirps', {
+        body: JSON.stringify(chirp),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      });
+      const json = await response.json();
+      console.log(json);
+    } catch (error) {
+      console.log(error);
+    }
+
     setReactChirps([chirp, ...reactChirps]);
   };
 
