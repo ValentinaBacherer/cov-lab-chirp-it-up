@@ -1,64 +1,46 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { SingleChirp } from '../utilities/types';
+import ChirpInput from './components/ChirpInput';
+import ChirpList from './components/ChirpList';
 
 /* HOOK REACT EXAMPLE */
-const App = (props: AppProps) => {
-	const [greeting, setGreeting] = useState<string>('');
+const App = () => {
+  const [reactChirps, setReactChirps] = useState<SingleChirp[]>([
+    { user: null, text: null },
+  ]);
 
-	useEffect(() => {
-		async function getGreeting() {
-			try {
-				const res = await fetch('/api/hello');
-				const greeting = await res.json();
-				setGreeting(greeting);
-			} catch (error) {
-				console.log(error);
-			}
-		}
-		getGreeting();
-	}, []);
+  useEffect(() => {
+    async function getChirps() {
+      try {
+        const res = await fetch('/api/chirps');
+        const chirpsList = await res.json();
 
-	return (
-		<main className="container my-5">
-			<h1 className="text-primary text-center">Hello {greeting}!</h1>
-		</main>
-	);
+        setReactChirps(chirpsList);
+      } catch (error) {}
+    }
+    getChirps();
+  }, []);
+
+  const updateChirps = (chirp: SingleChirp): void => {
+    setReactChirps([chirp, ...reactChirps]);
+  };
+
+  return (
+    <main className='container my-5'>
+      <div className='card col-6 mx-auto bg-primary shadow-sm p-2 mb-4'>
+        <h4 className='text-center text-white mb-0'>Hello Chirper!</h4>
+      </div>
+      <div className='container d-flex align-items-start justify-content-start'>
+        <div className='row col-4 mx-auto'>
+          <ChirpInput setChirps={updateChirps} />
+        </div>
+        <div className='row col-7 mx-auto'>
+          <ChirpList chirps={reactChirps} />
+        </div>
+      </div>
+    </main>
+  );
 };
-
-interface AppProps {}
-
-/* CLASS REACT EXAMPLE */
-// class App extends React.Component<IAppProps, IAppState> {
-// 	constructor(props: IAppProps) {
-// 		super(props);
-// 		this.state = {
-// 			name: null
-// 		};
-// 	}
-
-// 	async componentDidMount() {
-// 		try {
-// 			let r = await fetch('/api/hello');
-// 			let name = await r.json();
-// 			this.setState({ name });
-// 		} catch (error) {
-// 			console.log(error);
-// 		}
-// 	}
-
-// 	render() {
-// 		return (
-// 			<main className="container my-5">
-// 				<h1 className="text-primary text-center">Hello {this.state.name}!</h1>
-// 			</main>
-// 		);
-// 	}
-// }
-
-// export interface IAppProps {}
-
-// export interface IAppState {
-// 	name: string;
-// }
 
 export default App;

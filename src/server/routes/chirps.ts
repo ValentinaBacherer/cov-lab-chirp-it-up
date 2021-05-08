@@ -2,11 +2,12 @@ import * as express from 'express';
 
 const router = express.Router();
 import * as chirpStore from '../chirpstore';
+import { SingleChirp, ChirpsObject } from '../chirpstore';
 
 router.get('/:id?', (req, res) => {
   const id = req.params.id;
   if (id) {
-    const singleChirp = chirpStore.getChirp(id);
+    const singleChirp: SingleChirp = chirpStore.getChirp(id);
     if (singleChirp.text) {
       res.json(singleChirp);
     } else {
@@ -28,6 +29,8 @@ router.get('/:id?', (req, res) => {
 
 router.post('/', (req, res) => {
   const newChirp = req.body;
+  console.log('chirp to create', newChirp);
+
   chirpStore.createChirp(newChirp);
   const insertedChirpID = chirpStore.getLastInsertedID();
   res.status(200).json({
