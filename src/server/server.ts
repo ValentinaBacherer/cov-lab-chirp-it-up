@@ -1,5 +1,6 @@
 import * as express from 'express';
 import apiRouter from './routes/routes';
+import * as path from 'path';
 
 const app = express();
 
@@ -8,8 +9,7 @@ app.use(express.static('public'));
 app.use('/api', apiRouter);
 
 app.get('*', (req, res) => {
-  const badUrl = req.url;
-  res.status(404).send(`Sorry, we don't have anything at /${badUrl} 😕`);
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 const port = process.env.PORT || 3000;
