@@ -11,30 +11,29 @@ router.get('/:id?', (req, res) => {
     if (singleChirp.text) {
       res.json(singleChirp);
     } else {
-      res.status(404).send(`Sorry, chirp ID #${id} not found :( 😕`);
+      res.status(404).send(`Sorry, chirp ID #${id} not found 😕`);
     }
   } else {
     const allChirps = chirpStore.getChirps();
 
-    const cleanedUpChirps = Object.keys(allChirps).map((key) => {
+    const cleanedUpChirps: SingleChirp[] = Object.keys(allChirps).map((key) => {
       return {
         id: key,
+        // @ts-ignore
         ...allChirps[key],
       };
     });
-    cleanedUpChirps.pop();
+    cleanedUpChirps.pop(); //clean nextid
     res.send(cleanedUpChirps);
   }
 });
 
 router.post('/', (req, res) => {
   const newChirp = req.body;
-  console.log('chirp to create', newChirp);
-
   chirpStore.createChirp(newChirp);
   const insertedChirpID = chirpStore.getLastInsertedID();
   res.status(200).json({
-    message: 'Chirp was created succesfully!',
+    message: 'Chirp was created succesfully🎉!',
     insertID: insertedChirpID,
   });
 });

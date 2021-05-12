@@ -4,25 +4,22 @@ import { ChirpsObject, SingleChirp } from './types';
 let chirps: ChirpsObject = { nextid: 0 };
 
 if (fs.existsSync('chirps.json')) {
-  // returns an object
+  // loads stored chirps and returns an object
   chirps = JSON.parse(fs.readFileSync('chirps.json').toString());
 }
 
 export let getChirps = (): ChirpsObject => {
-  return Object.assign({}, chirps); //create a copy and return it
+  const newChirps: SingleChirp = {};
+  return Object.assign(newChirps, chirps); //create a copy and return it
 };
 
 export let getChirp = (id: string): SingleChirp => {
-  return Object.assign({}, chirps[id]); //create a copy and return it
+  const newChirp: SingleChirp = {};
+  return Object.assign(newChirp, chirps[id]); //create a copy and return it
 };
 
 export let createChirp = (chirp: SingleChirp): void => {
-  console.log('chirp to create:', chirp);
-
-  // -> I didn't know how to handle this nextid
   chirps[chirps.nextid++] = chirp; //assign and after increments value
-  console.log('created - chirps object', chirps);
-
   writeChirps();
 };
 
@@ -42,5 +39,5 @@ export let writeChirps = (): void => {
 
 // new function from Andrew
 export let getLastInsertedID = (): string | number => {
-  return chirps.nextid;
+  return chirps.nextid - 1;
 };
