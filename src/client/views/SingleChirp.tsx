@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { SingleChirp } from '../../utilities/types';
 
 export const Chirp = () => {
@@ -29,6 +29,7 @@ export const Chirp = () => {
       <h1>Single Chirp</h1>
       <p>{chirp?.user}</p>
       <h5>{chirp?.text}</h5>
+      <Link to='/'>Go home!</Link>
     </div>
   );
 };
