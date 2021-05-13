@@ -4,7 +4,7 @@ import { SiGooglemessages } from 'react-icons/si';
 import { SingleChirp } from '../../utilities/types';
 
 interface ChirpInput {
-  setChirps: (chirp: SingleChirp) => {};
+  setChirps: (chirp: SingleChirp, option: boolean) => {};
 }
 
 const ChirpInput = ({ setChirps }: ChirpInput) => {
