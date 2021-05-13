@@ -50,7 +50,7 @@ export const EditChirp: React.FC = () => {
       const savedData = await response.json();
       if (savedData) {
         console.log('Response json', savedData);
-        history.push('/');
+        history.push(`/chirps/${pizza_id}`);
       } else {
         throw new Error('No response');
       }
@@ -68,6 +68,8 @@ export const EditChirp: React.FC = () => {
       console.log('Delete Response', deletedData);
       if (response.ok) {
         history.push('/');
+      } else {
+        alert('Something went wrong 😕');
       }
     } catch (error) {
       console.log(error);

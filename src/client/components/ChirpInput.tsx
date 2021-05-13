@@ -5,10 +5,10 @@ import { SiGooglemessages } from 'react-icons/si';
 import { SingleChirp } from '../../utilities/types';
 
 interface ChirpInput {
-  setChirps: () => {};
+  setChirps: (chirp: SingleChirp) => {};
 }
 
-const ChirpInput = ({ setChirps }) => {
+const ChirpInput = ({ setChirps }: ChirpInput) => {
   const [username, setUsername] = React.useState<string>(null);
   const [message, setMessage] = React.useState<string>(null);
 
