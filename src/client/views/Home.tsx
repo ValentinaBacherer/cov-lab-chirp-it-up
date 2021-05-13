@@ -9,7 +9,7 @@ const Home = () => {
   const [reactChirps, setReactChirps] = useState<SingleChirp[]>([
     { user: '', text: '' },
   ]);
-  const viewSingleCreated = true;
+
   const history = useHistory();
 
   useEffect(() => {
@@ -24,7 +24,10 @@ const Home = () => {
     getChirps();
   }, []);
 
-  const updateChirps = async (chirp: SingleChirp): Promise<void> => {
+  const updateChirps = async (
+    chirp: SingleChirp,
+    viewSingle: boolean
+  ): Promise<void> => {
     try {
       const response = await fetch('/api/chirps', {
         body: JSON.stringify(chirp),
@@ -38,7 +41,7 @@ const Home = () => {
       //update chirp id
       const { insertID } = json;
       chirp.id = insertID;
-      if (viewSingleCreated) {
+      if (viewSingle) {
         history.push(`/chirps/${insertID}`);
       } else {
         setReactChirps([chirp, ...reactChirps]);

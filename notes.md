@@ -27,3 +27,7 @@ npm install --save react-icons @types/react-icons
 ## Andrew review
 
 commit: Recover original chirpstore id, navigate to single chirp view from home
+
+## Pendiente
+
+implementar que el toggle de ver chirp sea una opcion en el chirp input

@@ -10,6 +10,7 @@ interface ChirpInput {
 const ChirpInput = ({ setChirps }: ChirpInput) => {
   const [username, setUsername] = React.useState<string>('');
   const [message, setMessage] = React.useState<string>('');
+  const [viewSingle, setViewSingle] = React.useState<boolean>(false);
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
@@ -19,10 +20,15 @@ const ChirpInput = ({ setChirps }: ChirpInput) => {
         text: message,
         date: Date().toString(),
       };
-      setChirps(newChirp);
+      setChirps(newChirp, viewSingle);
       setMessage('');
       setUsername('');
     }
+  };
+
+  const handleViewChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value: boolean = e.target.checked;
+    setViewSingle(value);
   };
 
   return (
@@ -60,14 +66,27 @@ const ChirpInput = ({ setChirps }: ChirpInput) => {
               }}
             ></textarea>
           </div>
+
           <button
             type='submit'
-            className='btn btn-primary w-100'
+            className='btn btn-primary w-50'
             onClick={handleSubmit}
           >
             Chirp
           </button>
+          <label className='ml-4 mx-0 text-muted' htmlFor='view-chirp'>
+            View
+          </label>
+          <input
+            className='ml-2  mx-0 px-0'
+            type='checkbox'
+            id='view-chirp'
+            name='viewChirp'
+            checked={viewSingle}
+            onChange={handleViewChange}
+          />
         </form>
+        {viewSingle}
       </section>
     </>
   );
