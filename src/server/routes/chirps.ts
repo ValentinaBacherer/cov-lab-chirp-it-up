@@ -18,9 +18,9 @@ router.get('/:id?', (req, res) => {
 
     const cleanedUpChirps: SingleChirp[] = Object.keys(allChirps).map((key) => {
       return {
-        id: key,
         // @ts-ignore
         ...allChirps[key],
+        id: key,
       };
     });
     cleanedUpChirps.pop(); //clean nextid

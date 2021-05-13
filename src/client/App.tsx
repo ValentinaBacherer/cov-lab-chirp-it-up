@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { SingleChirp } from '../utilities/types';
 import Home from './views/Home';
-import { Chirp } from './views/SingleChirp';
+import { Chirp } from './views/Chirp';
 
 const App = () => {
   const [reactChirps, setReactChirps] = useState<SingleChirp[]>([

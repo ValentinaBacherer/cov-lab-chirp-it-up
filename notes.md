@@ -23,3 +23,7 @@ dayjs().format()
 npm install --save uuid @types/uuid
 
 npm install --save react-icons @types/react-icons
+
+## Andrew review
+
+commit: Recover original chirpstore id, navigate to single chirp view from home

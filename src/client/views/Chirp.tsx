@@ -3,8 +3,12 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { SingleChirp } from '../../utilities/types';
 
-export const Chirp = () => {
-  const { pizza_id } = useParams<{ pizza_id: string }>();
+interface ChirpParams {
+  pizza_id: string;
+}
+
+export const Chirp: React.FC = () => {
+  const { pizza_id } = useParams<ChirpParams>();
   const [chirp, setChirp] = useState<SingleChirp>(null);
 
   useEffect(() => {
@@ -25,11 +29,21 @@ export const Chirp = () => {
   }, [pizza_id]);
   if (!chirp) return <h1>Loading....</h1>;
   return (
-    <div>
-      <h1>Single Chirp</h1>
-      <p>{chirp?.user}</p>
-      <h5>{chirp?.text}</h5>
-      <Link to='/'>Go home!</Link>
+    <div className='container'>
+      <div className='row justify-content-center mt-5'>
+        <div className='col-4'>
+          <div className='card shadow-sm'>
+            <div className='card-body'>
+              <h2 className='card-title'>{chirp?.user}</h2>
+              <p className='card-subtitle'>Single Chirp</p>
+              <h6 className='card-text'>{chirp?.text}</h6>
+            </div>
+            <div className='card-footer'>
+              <Link to='/'>Go home!</Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
