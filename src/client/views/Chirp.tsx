@@ -38,8 +38,11 @@ export const Chirp: React.FC = () => {
               <p className='card-subtitle'>Single Chirp</p>
               <h6 className='card-text'>{chirp?.text}</h6>
             </div>
-            <div className='card-footer'>
+            <div className='card-footer d-flex justify-content-between'>
               <Link to='/'>Go home!</Link>
+              <Link className='text-info' to={`/chirps/edit/${pizza_id}`}>
+                Edit Chirp!
+              </Link>
             </div>
           </div>
         </div>

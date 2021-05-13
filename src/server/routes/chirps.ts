@@ -41,9 +41,13 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
   const id = req.params.id;
   const updatedChirp = req.body;
+  console.log('Received: ', id, updatedChirp);
+
   if (id) {
     chirpStore.updateChirp(id, updatedChirp);
-    res.sendStatus(200);
+    res.status(200).json({
+      message: 'Chirp was updated 🍕!',
+    });
   } else {
     res.status(400).send('Please make sure you provide a chirp id');
   }
@@ -53,9 +57,13 @@ router.delete('/:id', (req, res) => {
   const id = req.params.id;
   if (id) {
     chirpStore.deleteChirp(id);
-    res.sendStatus(200);
+    res.status(200).json({
+      message: 'Chirp deleted succesfully 🙋🏻‍♀️',
+    });
   } else {
-    res.status(400).send('Please provide a valid chirp id');
+    res.status(400).json({
+      message: 'Please provide a valid chirp id',
+    });
   }
 });
 

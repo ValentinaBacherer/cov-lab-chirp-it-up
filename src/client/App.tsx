@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { SingleChirp } from '../utilities/types';
 import Home from './views/Home';
 import { Chirp } from './views/Chirp';
+import { EditChirp } from './views/Edit';
 
 const App = () => {
   const [reactChirps, setReactChirps] = useState<SingleChirp[]>([
@@ -48,6 +49,9 @@ const App = () => {
         </Route>
         <Route exact path='/chirps/:pizza_id'>
           <Chirp />
+        </Route>
+        <Route exact path='/chirps/edit/:pizza_id'>
+          <EditChirp />
         </Route>
       </Switch>
     </BrowserRouter>
