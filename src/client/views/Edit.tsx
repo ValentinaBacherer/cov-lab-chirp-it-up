@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import { SingleChirp } from '../../utilities/types';
 
 interface EditChirpParams {
@@ -10,6 +10,7 @@ interface EditChirpParams {
 export const EditChirp: React.FC = () => {
   const { pizza_id } = useParams<EditChirpParams>();
   const [chirp, setChirp] = useState<SingleChirp>(null);
+  const history = useHistory();
 
   useEffect(() => {
     async function getSingleChirp() {
@@ -49,6 +50,7 @@ export const EditChirp: React.FC = () => {
       const savedData = await response.json();
       if (savedData) {
         console.log('Response json', savedData);
+        history.push('/');
       } else {
         throw new Error('No response');
       }
@@ -64,6 +66,9 @@ export const EditChirp: React.FC = () => {
       });
       const deletedData = await response.json();
       console.log('Delete Response', deletedData);
+      if (response.ok) {
+        history.push('/');
+      }
     } catch (error) {
       console.log(error);
     }
