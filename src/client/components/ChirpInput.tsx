@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { FaUserAstronaut } from 'react-icons/fa';
 import { SiGooglemessages } from 'react-icons/si';
 import { SingleChirp } from '../../utilities/types';
@@ -9,8 +8,8 @@ interface ChirpInput {
 }
 
 const ChirpInput = ({ setChirps }: ChirpInput) => {
-  const [username, setUsername] = React.useState<string>(null);
-  const [message, setMessage] = React.useState<string>(null);
+  const [username, setUsername] = React.useState<string>('');
+  const [message, setMessage] = React.useState<string>('');
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
@@ -19,7 +18,6 @@ const ChirpInput = ({ setChirps }: ChirpInput) => {
         user: username,
         text: message,
         date: Date().toString(),
-        id: uuidv4(),
       };
       setChirps(newChirp);
       setMessage('');

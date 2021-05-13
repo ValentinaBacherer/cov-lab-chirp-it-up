@@ -3,11 +3,14 @@ import { useState, useEffect } from 'react';
 import { SingleChirp } from '../../utilities/types';
 import ChirpInput from '../components/ChirpInput';
 import ChirpList from '../components/ChirpList';
+import { useHistory } from 'react-router-dom';
 
 const Home = () => {
   const [reactChirps, setReactChirps] = useState<SingleChirp[]>([
-    { user: null, text: null },
+    { user: '', text: '' },
   ]);
+  const viewSingleCreated = true;
+  const history = useHistory();
 
   useEffect(() => {
     async function getChirps() {
@@ -31,12 +34,18 @@ const Home = () => {
         method: 'POST',
       });
       const json = await response.json();
-      console.log(json);
+      console.log('Chirp created', json);
+      //update chirp id
+      const { insertID } = json;
+      chirp.id = insertID;
+      if (viewSingleCreated) {
+        history.push(`/chirps/${insertID}`);
+      } else {
+        setReactChirps([chirp, ...reactChirps]);
+      }
     } catch (error) {
       console.log(error);
     }
-
-    setReactChirps([chirp, ...reactChirps]);
   };
 
   return (

@@ -9,7 +9,10 @@ router.get('/:id?', (req, res) => {
   if (id) {
     const singleChirp: SingleChirp = chirpStore.getChirp(id);
     if (singleChirp.text) {
-      res.json(singleChirp);
+      res.json({
+        ...singleChirp,
+        id: id,
+      });
     } else {
       res.status(404).send(`Sorry, chirp ID #${id} not found 😕`);
     }
