@@ -17,6 +17,7 @@ const Home = () => {
       try {
         const res = await fetch('/api/chirps');
         const chirpsList = await res.json();
+        console.log('Chirps received', chirpsList);
 
         setReactChirps(chirpsList);
       } catch (error) {}
@@ -24,7 +25,7 @@ const Home = () => {
     getChirps();
   }, []);
 
-  const updateChirps = async (
+  const createUpdateChirps = async (
     chirp: SingleChirp,
     viewSingle: boolean
   ): Promise<void> => {
@@ -37,10 +38,12 @@ const Home = () => {
         method: 'POST',
       });
       const json = await response.json();
-      console.log('Chirp created', json);
+      console.log('Chirp created response client', json);
+
       //update chirp id
-      const { insertID } = json;
-      chirp.id = insertID;
+
+      const insertID = json.response.insertId;
+
       if (viewSingle) {
         history.push(`/chirps/${insertID}`);
       } else {
@@ -56,11 +59,11 @@ const Home = () => {
       <div className='card col-6 mx-auto bg-primary shadow-sm p-2 mb-4'>
         <h4 className='text-center text-white mb-0'>Hello Chirper!</h4>
       </div>
-      <div className='container d-flex align-items-start justify-content-start'>
+      <div className='container d-flex align-items-start justify-content-center'>
         <div className='row col-4 mx-auto'>
-          <ChirpInput setChirps={updateChirps} />
+          <ChirpInput setChirps={createUpdateChirps} />
         </div>
-        <div className='row col-7 mx-auto'>
+        <div className='row col-5 mx-auto'>
           <ChirpList chirps={reactChirps} />
         </div>
       </div>

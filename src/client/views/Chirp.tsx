@@ -10,7 +10,7 @@ interface ChirpParams {
 export const Chirp: React.FC = () => {
   const { pizza_id } = useParams<ChirpParams>();
   const [chirp, setChirp] = useState<SingleChirp>(null);
-
+  console.log('received in single view', chirp);
   useEffect(() => {
     async function getSingleChirp() {
       try {
@@ -34,7 +34,7 @@ export const Chirp: React.FC = () => {
         <div className='col-4'>
           <div className='card shadow-sm'>
             <div className='card-body'>
-              <h2 className='card-title'>{chirp?.user}</h2>
+              <h2 className='card-title'>{chirp?.username}</h2>
               <p className='card-subtitle'>Single Chirp</p>
               <h6 className='card-text'>{chirp?.text}</h6>
             </div>

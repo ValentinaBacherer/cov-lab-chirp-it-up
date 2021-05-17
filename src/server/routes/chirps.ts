@@ -2,42 +2,36 @@ import * as express from 'express';
 
 const router = express.Router();
 import * as chirpStore from '../../utilities/chirpstore';
-import { SingleChirp } from '../../utilities/types';
+import db from './../db';
 
-router.get('/:id?', (req, res) => {
-  const id = req.params.id;
+router.get('/:id?', async (req, res) => {
+  const id = +req.params.id;
   if (id) {
-    const singleChirp: SingleChirp = chirpStore.getChirp(id);
-    if (singleChirp.text) {
-      res.json({
-        ...singleChirp,
-        id: id,
-      });
-    } else {
-      res.status(404).send(`Sorry, chirp ID #${id} not found 😕`);
+    try {
+      const chirp = (await db.Chirps.one(id))[0];
+      res.json(chirp);
+    } catch (e) {
+      console.log(e);
+      res.status(500).send(`Sorry, chirp ID #${id} not found 😕`);
     }
   } else {
-    const allChirps = chirpStore.getChirps();
-
-    const cleanedUpChirps: SingleChirp[] = Object.keys(allChirps).map((key) => {
-      return {
-        // @ts-ignore
-        ...allChirps[key],
-        id: key,
-      };
-    });
-    cleanedUpChirps.pop(); //clean nextid
-    res.send(cleanedUpChirps);
+    try {
+      const allChirps = await db.Chirps.all();
+      res.json(allChirps);
+    } catch (e) {
+      console.log(e);
+      res.status(500).send('Sorry, we have a server Problem 😕');
+    }
   }
 });
 
-router.post('/', (req, res) => {
-  const newChirp = req.body;
-  chirpStore.createChirp(newChirp);
-  const insertedChirpID = chirpStore.getLastInsertedID();
+router.post('/', async (req, res) => {
+  const { username, content } = req.body;
+  const response = await db.Chirps.insert(username, content);
+
   res.status(200).json({
     message: 'Chirp was created succesfully🎉!',
-    insertID: insertedChirpID,
+    response,
   });
 });
 

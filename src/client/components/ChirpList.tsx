@@ -5,7 +5,7 @@ import ChirpItem from './ChirpItem';
 const ChirpList = (props: ChirpList) => {
   const { chirps } = props;
   return (
-    <section className='card bg-white p-4 shadow-sm'>
+    <section className='card col-12 bg-white p-4 shadow-sm'>
       {chirps.map((chirp, index) => {
         return <ChirpItem key={`chirp-id${chirp.id}${index}`} chirp={chirp} />;
       })}

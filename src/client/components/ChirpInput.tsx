@@ -16,8 +16,8 @@ const ChirpInput = ({ setChirps }: ChirpInput) => {
     e.preventDefault();
     if (username && message) {
       const newChirp: SingleChirp = {
-        user: username,
-        text: message,
+        username: username,
+        content: message,
         date: Date().toString(),
       };
       setChirps(newChirp, viewSingle);

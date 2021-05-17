@@ -6,7 +6,10 @@ export interface ChirpsObject {
 
 export interface SingleChirp {
   id?: string;
+  userid?: string;
   user?: string;
   text?: string;
   date?: string;
+  content?: string;
+  username?: string;
 }

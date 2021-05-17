@@ -8,12 +8,12 @@ import { Link } from 'react-router-dom';
 dayjs.extend(rt);
 
 const ChirpItem = (props: ChirpItemProps) => {
-  const { user, text, id } = props.chirp;
+  const { username, content, id } = props.chirp;
   const date = Date.now() - Math.floor(Math.random() * 700000);
   return (
     <>
-      <h6 className='fw-bold'>@{user}</h6>
-      <p>{text}</p>
+      <h6 className='fw-bold'>@{username}</h6>
+      <p>{content}</p>
       <span className='text-secondary'>{dayjs(date).fromNow()}</span>
       <Link to={`/chirps/${id}`}>Just Me!</Link>
       <hr />
