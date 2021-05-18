@@ -3,6 +3,7 @@ import * as express from 'express';
 const router = express.Router();
 import db from './../db';
 
+//* READ *//
 router.get('/:id?', async (req, res) => {
   const id = +req.params.id;
   if (id) {
@@ -24,6 +25,7 @@ router.get('/:id?', async (req, res) => {
   }
 });
 
+//* CREATE *//
 router.post('/', async (req, res) => {
   const { username, content } = req.body;
   const response = await db.Chirps.insert(username, content);
@@ -34,6 +36,7 @@ router.post('/', async (req, res) => {
   });
 });
 
+//* UPDATE *//
 router.put('/:id', async (req, res) => {
   const id = +req.params.id;
   const updateData = req.body;
@@ -51,6 +54,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+//* DELETE *//
 router.delete('/:id', async (req, res) => {
   const id = Number(req.params.id);
   if (id) {

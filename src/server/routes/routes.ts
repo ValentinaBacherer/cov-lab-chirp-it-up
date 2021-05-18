@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.use('/chirps', chirpsRouter);
 
-router.get('/hello', (req, res, next) => {
-  res.json('Congratulations, you have won a 🍕🍕🍕 prize!');
+router.get('/hello', (req, res) => {
+  res.json('Congratulations, you have won a life on earth!');
 });
 
 router.get('*', (req, res) => {

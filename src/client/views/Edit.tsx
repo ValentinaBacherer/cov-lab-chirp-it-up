@@ -60,13 +60,12 @@ export const EditChirp: React.FC = () => {
 
       const savedData = await response.json();
       if (savedData) {
-        console.log('Response json', savedData);
         history.push(`/chirps/${pizza_id}`);
       } else {
         throw new Error('No response');
       }
     } catch (error) {
-      console.log('Error message from server: ', error);
+      console.log('My code sucks, let me know🤪!', error);
     }
   };
 
@@ -95,10 +94,12 @@ export const EditChirp: React.FC = () => {
         <div className='col-5'>
           <div className='card shadow-sm'>
             <div className='card-body'>
-              <h2 className='card-title'>{chirp?.username}</h2>
-              <p className='card-subtitle'>Single Chirp</p>
+              <h2 className='card-title'>@{chirp?.username}</h2>
+              <p className='card-subtitle text-muted'>Single Chirp</p>
               <h5 className='card-text'>{chirp?.content}</h5>
-              <label htmlFor='chirp'>content</label>
+              <label htmlFor='chirp' className='mt-2 mb-0'>
+                content:
+              </label>
               <input
                 className='w-100'
                 type='text'
@@ -106,7 +107,9 @@ export const EditChirp: React.FC = () => {
                 id='chirp'
                 onChange={handleContentChange}
               />
-              <label htmlFor='username'>username</label>
+              <label htmlFor='username' className='mt-2 mb-0'>
+                username:
+              </label>
               <input
                 className='w-100'
                 type='text'

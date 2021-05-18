@@ -10,7 +10,7 @@ interface ChirpParams {
 export const Chirp: React.FC = () => {
   const { pizza_id } = useParams<ChirpParams>();
   const [chirp, setChirp] = useState<SingleChirp>(null);
-  console.log('received in single view', chirp);
+
   useEffect(() => {
     async function getSingleChirp() {
       try {
@@ -27,16 +27,18 @@ export const Chirp: React.FC = () => {
     }
     getSingleChirp();
   }, [pizza_id]);
+
   if (!chirp) return <h1>Loading....</h1>;
+
   return (
     <div className='container'>
       <div className='row justify-content-center mt-5'>
         <div className='col-4'>
           <div className='card shadow-sm'>
             <div className='card-body'>
-              <h2 className='card-title'>{chirp?.username}</h2>
-              <p className='card-subtitle'>Single Chirp</p>
-              <h6 className='card-text'>{chirp?.content}</h6>
+              <h2 className='card-title'>@{chirp?.username}</h2>
+              <p className='card-subtitle text-muted'>Single Chirp</p>
+              <h5 className='card-text'>{chirp?.content}</h5>
             </div>
             <div className='card-footer d-flex justify-content-between'>
               <Link to='/'>Go home!</Link>
