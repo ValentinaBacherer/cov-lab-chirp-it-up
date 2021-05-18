@@ -9,7 +9,7 @@ export const Connection = mysql.createConnection({
   database: 'chirpr',
 });
 
-export const Query = (query: string, values?: Array<string | number>) => {
+export const Query = (query: string, values?: any) => {
   return new Promise<Array<any>>((resolve, reject) => {
     Connection.query(query, values, (err, res) => {
       if (err) return reject(err);

@@ -7,9 +7,7 @@ export interface ChirpsObject {
 export interface SingleChirp {
   id?: string;
   userid?: string;
-  user?: string;
-  text?: string;
-  date?: string;
-  content?: string;
+  date?: any;
+  content: string;
   username?: string;
 }

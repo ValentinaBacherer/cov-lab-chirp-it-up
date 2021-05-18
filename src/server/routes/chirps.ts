@@ -1,7 +1,6 @@
 import * as express from 'express';
 
 const router = express.Router();
-import * as chirpStore from '../../utilities/chirpstore';
 import db from './../db';
 
 router.get('/:id?', async (req, res) => {
@@ -35,13 +34,15 @@ router.post('/', async (req, res) => {
   });
 });
 
-router.put('/:id', (req, res) => {
-  const id = req.params.id;
-  const updatedChirp = req.body;
-  console.log('Received: ', id, updatedChirp);
+router.put('/:id', async (req, res) => {
+  const id = +req.params.id;
+  const updateData = req.body;
+  console.log('Received to update: ', id, req.body);
 
   if (id) {
-    chirpStore.updateChirp(id, updatedChirp);
+    const response = await db.Chirps.update(updateData, id);
+    console.log('update response', response);
+
     res.status(200).json({
       message: 'Chirp was updated 🍕!',
     });
@@ -50,12 +51,13 @@ router.put('/:id', (req, res) => {
   }
 });
 
-router.delete('/:id', (req, res) => {
-  const id = req.params.id;
+router.delete('/:id', async (req, res) => {
+  const id = Number(req.params.id);
   if (id) {
-    chirpStore.deleteChirp(id);
+    const response = await db.Chirps.destroy(id);
     res.status(200).json({
       message: 'Chirp deleted succesfully 🙋🏻‍♀️',
+      response,
     });
   } else {
     res.status(400).json({

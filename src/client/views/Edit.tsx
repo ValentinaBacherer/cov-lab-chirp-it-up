@@ -29,22 +29,33 @@ export const EditChirp: React.FC = () => {
     getSingleChirp();
   }, [pizza_id]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChirp({
       ...chirp,
-      text: e.target.value,
+      content: e.target.value,
+    });
+  };
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChirp({
+      ...chirp,
+      username: e.target.value,
     });
   };
 
   const saveChirp = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    const updateChirp = {
+      username: chirp.username,
+      content: chirp.content,
+    };
+
     try {
       const response = await fetch(`/api/chirps/${pizza_id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json',
         },
-        body: JSON.stringify(chirp),
+        body: JSON.stringify(updateChirp),
       });
 
       const savedData = await response.json();
@@ -84,16 +95,24 @@ export const EditChirp: React.FC = () => {
         <div className='col-5'>
           <div className='card shadow-sm'>
             <div className='card-body'>
-              <h2 className='card-title'>{chirp?.user}</h2>
+              <h2 className='card-title'>{chirp?.username}</h2>
               <p className='card-subtitle'>Single Chirp</p>
-              <h5 className='card-text'>{chirp?.text}</h5>
-              <label htmlFor='chirp'></label>
+              <h5 className='card-text'>{chirp?.content}</h5>
+              <label htmlFor='chirp'>content</label>
               <input
                 className='w-100'
                 type='text'
-                value={chirp?.text}
+                value={chirp?.content}
                 id='chirp'
-                onChange={handleChange}
+                onChange={handleContentChange}
+              />
+              <label htmlFor='username'>username</label>
+              <input
+                className='w-100'
+                type='text'
+                value={chirp?.username}
+                id='username'
+                onChange={handleUsernameChange}
               />
             </div>
             <div className='card-footer d-flex justify-content-between'>

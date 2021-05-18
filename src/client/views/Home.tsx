@@ -38,11 +38,11 @@ const Home = () => {
         method: 'POST',
       });
       const json = await response.json();
-      console.log('Chirp created response client', json);
+      console.log('Chirp created response client', json.response.insertId);
 
       //update chirp id
-
       const insertID = json.response.insertId;
+      chirp.id = insertID;
 
       if (viewSingle) {
         history.push(`/chirps/${insertID}`);

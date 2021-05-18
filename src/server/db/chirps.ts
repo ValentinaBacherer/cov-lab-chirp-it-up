@@ -1,26 +1,22 @@
 import { Query } from './index';
 
 const all = async () => Query('SELECT * FROM chirps');
+
 const one = async (id: number) =>
   Query('SELECT * FROM chirps where id=?', [id]);
+
 const destroy = async (id: number) =>
-  Query('DELETE FROM todos WHERE id=?', [id]);
-const insert = (username: string, content: string, location?: string) =>
-  Query('INSERT INTO chirps (username, content, location) VALUES (?, ?,?)', [
+  Query('DELETE FROM chirps WHERE id=?', [id]);
+
+const insert = (username: string, content: string) =>
+  Query('INSERT INTO chirps (username, content) VALUES (?, ?)', [
     username,
     content,
-    location,
   ]);
 const update = (
-  id: number,
-  username?: string,
-  content?: string,
-  location?: string
-) =>
-  Query(
-    'UPDATE chirps (userid, content, location) VALUES (?,?,?) WHERE id = ?',
-    [username, content, location, id]
-  );
+  updatedChirp: { username?: string; content?: string },
+  id: number
+) => Query('UPDATE chirps SET ? WHERE id = ?', [updatedChirp, id]);
 
 // OPTIONAL -> Short hand way
 // const insert = (newChirp: {

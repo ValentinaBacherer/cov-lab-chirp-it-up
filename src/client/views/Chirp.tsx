@@ -36,7 +36,7 @@ export const Chirp: React.FC = () => {
             <div className='card-body'>
               <h2 className='card-title'>{chirp?.username}</h2>
               <p className='card-subtitle'>Single Chirp</p>
-              <h6 className='card-text'>{chirp?.text}</h6>
+              <h6 className='card-text'>{chirp?.content}</h6>
             </div>
             <div className='card-footer d-flex justify-content-between'>
               <Link to='/'>Go home!</Link>
