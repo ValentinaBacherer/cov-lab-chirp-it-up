@@ -1,13 +1,8 @@
 import * as mysql from 'mysql';
+import config from '../config';
 import Chirps from './chirps';
 
-export const Connection = mysql.createConnection({
-  host: 'localhost',
-  port: 3306,
-  user: 'chirprapp',
-  password: '123456',
-  database: 'chirpr',
-});
+export const Connection = mysql.createConnection(config.mySql);
 
 export const Query = (query: string, values?: any) => {
   return new Promise<Array<any>>((resolve, reject) => {
