@@ -6,6 +6,6 @@ dist/
 public/js/app.js
 
 # config
-src/config
+src/server/config
 
 notes.md
