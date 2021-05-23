@@ -5,4 +5,7 @@ node_modules/
 dist/
 public/js/app.js
 
+# config
+src/config
+
 notes.md
