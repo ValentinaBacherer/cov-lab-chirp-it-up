@@ -1,15 +1,19 @@
 import * as express from 'express';
-
+import { v4 as uuidv4 } from 'uuid';
 const router = express.Router();
 import db from './../db';
 
 //* READ *//
 router.get('/:id?', async (req, res) => {
-  const id = +req.params.id;
+  const id = req.params.id;
   if (id) {
     try {
       const chirp = (await db.Chirps.one(id))[0];
-      res.json(chirp);
+      if (chirp) {
+        res.json(chirp);
+      } else {
+        throw new Error('No chirp found');
+      }
     } catch (e) {
       console.log(e);
       res.status(500).send(`Sorry, chirp ID #${id} not found 😕`);
@@ -27,18 +31,28 @@ router.get('/:id?', async (req, res) => {
 
 //* CREATE *//
 router.post('/', async (req, res) => {
+  const id = uuidv4();
   const { username, content } = req.body;
-  const response = await db.Chirps.insert(username, content);
+  const response: any = await db.Chirps.insert({ id, username, content });
 
-  res.status(200).json({
-    message: 'Chirp was created succesfully🎉!',
-    response,
-  });
+  console.log({ response });
+  if (response.affectedRows != 1) {
+    res.status(500).json({
+      message: 'Chirp was NOT created succesfully :(!',
+      response,
+    });
+  } else {
+    res.status(200).json({
+      message: 'Chirp was created succesfully🎉!',
+      response,
+      id,
+    });
+  }
 });
 
 //* UPDATE *//
 router.put('/:id', async (req, res) => {
-  const id = +req.params.id;
+  const id = req.params.id;
   const updateData = req.body;
   console.log('Received to update: ', id, req.body);
 
@@ -56,7 +70,7 @@ router.put('/:id', async (req, res) => {
 
 //* DELETE *//
 router.delete('/:id', async (req, res) => {
-  const id = Number(req.params.id);
+  const id = req.params.id;
   if (id) {
     const response = await db.Chirps.destroy(id);
     res.status(200).json({

@@ -40,7 +40,7 @@ const Home = () => {
       });
       const json = await response.json();
 
-      const insertID = json.response.insertId;
+      const insertID = await json.id;
       chirp.id = insertID;
 
       if (viewSingle) {
