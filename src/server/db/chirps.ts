@@ -1,9 +1,10 @@
+import { SingleChirp } from '../../utilities/types';
 import { Query } from './index';
 
-const all = async () => Query('SELECT * FROM chirps');
+const all = async () => Query<Array<SingleChirp>>('SELECT * FROM chirps');
 
 const one = async (id: string) =>
-  Query('SELECT * FROM chirps where id=?', [id]);
+  Query<SingleChirp[]>('SELECT * FROM chirps where id=?', [id]);
 
 const destroy = async (id: string) =>
   Query('DELETE FROM chirps WHERE id=?', [id]);

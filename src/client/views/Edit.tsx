@@ -123,10 +123,10 @@ export const EditChirp: React.FC = () => {
                 Go home!
               </Link>
               <button className='btn btn-primary' onClick={saveChirp}>
-                Save Edits!
+                Save Edits
               </button>
               <button className='btn btn-danger' onClick={deleteChirp}>
-                Delete chirp!
+                Delete chirp
               </button>
             </div>
           </div>

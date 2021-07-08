@@ -1,5 +1,6 @@
 import * as express from 'express';
 import { v4 as uuidv4 } from 'uuid';
+import { MySQLResponse } from '../../utilities/types';
 const router = express.Router();
 import db from './../db';
 
@@ -21,6 +22,9 @@ router.get('/:id?', async (req, res) => {
   } else {
     try {
       const allChirps = await db.Chirps.all();
+      allChirps.forEach((chirp) => {
+        delete chirp.userid;
+      });
       res.json(allChirps);
     } catch (e) {
       console.log(e);
@@ -33,13 +37,17 @@ router.get('/:id?', async (req, res) => {
 router.post('/', async (req, res) => {
   const id = uuidv4();
   const { username, content } = req.body;
-  const response: any = await db.Chirps.insert({ id, username, content });
+  const response: MySQLResponse = await db.Chirps.insert({
+    id,
+    username,
+    content,
+  });
 
   console.log({ response });
-  if (response.affectedRows != 1) {
+  if (response.sqlMessage) {
     res.status(500).json({
       message: 'Chirp was NOT created succesfully :(!',
-      response,
+      error: response.sqlMessage,
     });
   } else {
     res.status(200).json({

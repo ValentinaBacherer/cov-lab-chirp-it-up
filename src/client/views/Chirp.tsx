@@ -41,9 +41,9 @@ export const Chirp: React.FC = () => {
               <h5 className='card-text'>{chirp?.content}</h5>
             </div>
             <div className='card-footer d-flex justify-content-between'>
-              <Link to='/'>Go home!</Link>
+              <Link to='/'>Go home</Link>
               <Link className='text-info' to={`/chirps/edit/${pizza_id}`}>
-                Edit Chirp!
+                Edit Chirp
               </Link>
             </div>
           </div>
